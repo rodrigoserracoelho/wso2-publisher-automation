@@ -22,5 +22,8 @@ This service allows you to quickly deploy with automation on WSO2 without having
 * Find alias in the truststore.
 * Create an alias in the truststore for a given certificate.
 * Delete an alias in the truststore.
+
+## It integrates with Zipkin  distributed tracing system.
+
 #### Tested with WSO2 REST API versions 0.11, 0.14 (present in the API Manager 2.1.0 and 2.6.0)
 ##### Testing with WSO2 API Manager 3.0.0 in progress.
