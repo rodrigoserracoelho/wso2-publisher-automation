@@ -1,0 +1,55 @@
+{
+
+   "name": "[(${name})]",
+   "description": "[(${description})]",
+   "context": "[(${context})]",
+   "version": "[(${version})]",
+   "provider": "automation",
+   "apiDefinition":"{\"swagger\": \"2.0\", \"info\": { \"description\": \"template\", \"version\": \"1.0.0\", \"title\": \"template\" }, \"host\": \"localhost\", \"basePath\": \"/v2\", \"schemes\": [ \"https\" ], \"paths\": { \"/test\": { \"get\": { \"summary\": \"\", \"description\": \"\", \"responses\": { \"200\": { \"description\": \"template\" }}}}}}",
+   "wsdlUri": null,
+   "isDefaultVersion": [(${defaultVersion})],
+   "type": "HTTP",
+   "transport":    [
+      "http",
+      "https"
+   ],
+   "tiers": ["Unlimited"],
+   "visibility": "PUBLIC",
+   "endpointConfig": "{\"production_endpoints\":{\"url\":\"[(${production_endpoint})]\",\"config\":{\"suspendDuration\":\"0\",\"suspendMaxDuration\":\"0\",\"actionSelect\":\"fault\",\"actionDuration\":\"30000\"}},\"endpoint_type\":\"http\"}",
+   "businessInformation":    {
+      "businessOwnerEmail": "DIGIT-APIGW-SUPPORT@ec.europa.eu",
+      "technicalOwnerEmail": "DIGIT-APIGW-SUPPORT@ec.europa.eu",
+      "technicalOwner": "DIGIT-APIGW-SUPPORT",
+      "businessOwner": "DIGIT-APIGW-SUPPORT"
+   },
+   "corsConfiguration":    {
+      "accessControlAllowOrigins": [(${api_allowed_origins})],
+      "accessControlAllowHeaders":       [
+         "authorization",
+         "Access-Control-Allow-Origin",
+         "Content-Type",
+         "Cache-Control",
+         "X-Requested-With",
+         "Authorization-Propagation",
+         "Pragma",
+         "X-Csrf-Request",
+         "gem-context",
+         "Impersonated",
+         "X-B3-ParentSpanId",
+         "X-B3-SpanId",
+         "X-B3-Sampled",
+         "X-B3-TraceId"
+
+      ],
+      "accessControlAllowMethods":       [
+         "GET",
+         "PUT",
+         "POST",
+         "DELETE",
+         "PATCH",
+         "OPTIONS"
+      ],
+      "accessControlAllowCredentials": true,
+      "corsConfigurationEnabled": true
+   }
+}
