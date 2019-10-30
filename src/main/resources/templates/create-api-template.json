@@ -17,10 +17,10 @@
    "visibility": "PUBLIC",
    "endpointConfig": "{\"production_endpoints\":{\"url\":\"[(${production_endpoint})]\",\"config\":{\"suspendDuration\":\"0\",\"suspendMaxDuration\":\"0\",\"actionSelect\":\"fault\",\"actionDuration\":\"30000\"}},\"endpoint_type\":\"http\"}",
    "businessInformation":    {
-      "businessOwnerEmail": "DIGIT-APIGW-SUPPORT@ec.europa.eu",
-      "technicalOwnerEmail": "DIGIT-APIGW-SUPPORT@ec.europa.eu",
-      "technicalOwner": "DIGIT-APIGW-SUPPORT",
-      "businessOwner": "DIGIT-APIGW-SUPPORT"
+      "businessOwnerEmail": "me@rodrigo.at",
+      "technicalOwnerEmail": "me@rodrigo.at",
+      "technicalOwner": "RODRIGO COELHO",
+      "businessOwner": "RODRIGO COELHO"
    },
    "corsConfiguration":    {
       "accessControlAllowOrigins": [(${api_allowed_origins})],
