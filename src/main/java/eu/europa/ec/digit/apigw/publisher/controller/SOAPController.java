@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -64,7 +65,7 @@ public class SOAPController {
         String callID = UUID.randomUUID().toString();
         callTracer.fromRequest(request, callID);
 
-        Api apiToPublish = null;
+        Api apiToPublish;
         log.info("INCOMING REQUEST TO PUBLISH SOAP");
 
         try {
@@ -119,7 +120,7 @@ public class SOAPController {
                     callTracer.fromResponse(request, response, HttpStatus.OK);
                     return new ResponseEntity<>(apiToPublish, HttpStatus.OK);
                 } else {
-                    /** The user must delete the returned ID and try again the operation */
+                    /* The user must delete the returned ID and try again the operation */
                     apiToPublish.setCallError(true);
                     apiToPublish.setCallErrorMessage("The API was created but failed to publish");
                     apiToPublish.setCallID(callID);
@@ -127,7 +128,7 @@ public class SOAPController {
                     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
                 }
             } else {
-                /** The user must retry again, probably a communication problem with the API Gateway */
+                /* The user must retry again, probably a communication problem with the API Gateway */
                 apiToPublish = new Api();
                 apiToPublish.setCallError(true);
                 apiToPublish.setCallErrorMessage("Error looking for previous versions.");
@@ -162,7 +163,8 @@ public class SOAPController {
         log.info("INCOMING REQUEST TO CREATE A NEW VERSION OF EXISTING SOAP SERVICE");
 
         try {
-            if(soapServiceUtils.isCallValid(soapApi, true)) {
+            if(!soapServiceUtils.isCallValid(soapApi, true)) {
+                apiToPublish = new Api();
                 apiToPublish.setCallError(true);
                 apiToPublish.setCallErrorMessage("Missing parameters.");
                 apiToPublish.setCallID(callID);
@@ -192,7 +194,8 @@ public class SOAPController {
                         callTracer.fromResponse(request, response, HttpStatus.OK);
                         return new ResponseEntity<>(apiToPublish, HttpStatus.OK);
                     } else {
-                        /** The user must delete the returned ID and try again the operation */
+                        /* The user must delete the returned ID and try again the operation */
+                        apiToPublish = new Api();
                         apiToPublish.setCallError(true);
                         apiToPublish.setCallErrorMessage("The API was updated but failed to publish");
                         apiToPublish.setCallID(callID);
@@ -200,6 +203,7 @@ public class SOAPController {
                         return new ResponseEntity<>(apiToPublish, HttpStatus.BAD_REQUEST);
                     }
                 } else {
+                    apiToPublish = new Api();
                     apiToPublish.setCallError(true);
                     apiToPublish.setCallErrorMessage("Missing parameters.");
                     apiToPublish.setCallID(callID);
@@ -207,6 +211,7 @@ public class SOAPController {
                     return new ResponseEntity<>(apiToPublish, updateNewVersionCall.getStatusCode());
                 }
             } else {
+                apiToPublish = new Api();
                 apiToPublish.setCallError(true);
                 apiToPublish.setCallErrorMessage("Missing parameters.");
                 apiToPublish.setCallID(callID);
@@ -297,7 +302,7 @@ public class SOAPController {
             return new ResponseEntity<>(version, HttpStatus.BAD_REQUEST);
         }
         ResponseEntity<Version> searchCall = wso2Caller.searchForVersion(searchParameters, soapServiceUtils.getLimit(searchParameters), request);
-        searchCall.getBody().setCallID(callID);
+        Objects.requireNonNull(searchCall.getBody()).setCallID(callID);
         callTracer.fromResponse(request, response, searchCall.getStatusCode());
         return searchCall;
     }
